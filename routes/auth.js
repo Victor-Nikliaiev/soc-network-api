@@ -1,10 +1,10 @@
 import express from "express";
 import { User } from "../models/User.js";
-export const route = express.Router();
+export const router = express.Router();
 import bcrypt from "bcrypt";
 
 // REGISTER
-route.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
     try {
         // generate new password
         const salt = await bcrypt.genSalt(10);
@@ -20,9 +20,27 @@ route.post("/register", async (req, res) => {
         // save user and response.
         const user = await newUser.save();
         res.status(200).json(user);
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        res.status(500).json(error);
     }
 });
 
 // LOGIN
+router.post("/login", async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        !user &&
+            res
+                .status(404)
+                .send(`The user with '${req.body.email}' was not found`);
+        const isPasswordValid = await bcrypt.compare(
+            req.body.password,
+            user.password
+        );
+        !isPasswordValid &&
+            res.status(400).send("Provided password is incorrect.");
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});

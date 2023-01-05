@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import morgan from "morgan";
-import { route as userRoute } from "./routes/users.js";
-import { route as authRoute } from "./routes/auth.js";
+import { router as userRoute } from "./routes/users.js";
+import { router as authRoute } from "./routes/auth.js";
 
 const app = express();
 const port = 8880;

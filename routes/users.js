@@ -1,6 +1,12 @@
 import express from "express";
-export const route = express.Router();
+export const router = express.Router();
 
-route.get("/", (req, res) => {
-    res.send("Hey, it's user route");
-});
+// UPDATE USER
+
+// DELETE USER
+
+// GET A USER
+
+// FOLLOW A USER
+
+// UNFOLLOW A USER
