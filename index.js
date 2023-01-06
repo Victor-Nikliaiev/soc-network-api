@@ -5,9 +5,10 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { router as userRoute } from "./routes/users.js";
 import { router as authRoute } from "./routes/auth.js";
+import { router as postRoute } from "./routes/posts.js";
 
 const app = express();
-const port = 8880;
+const port = process.env.PORT || 8880;
 
 dotenv.config();
 
@@ -24,13 +25,10 @@ app.use(morgan("common"));
 // Routes
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/posts", postRoute);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to Homepage :D");
-});
-
-app.get("/users", (req, res) => {
-    res.send("Welcome to Users!");
+    res.json({ title: "Social Network API", version: "1.0" });
 });
 
 app.listen(port, () => {
