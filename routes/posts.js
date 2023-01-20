@@ -85,8 +85,8 @@ router.get("/:id", async (req, res) => {
 });
 
 // GET TIMELINE POSTS
-router.get("/timeline/all", async (req, res) => {
-    const userId = req.body.userId;
+router.get("/timeline/:userId", async (req, res) => {
+    const userId = req.params.userId;
 
     try {
         const currentUser = await User.findById(userId);

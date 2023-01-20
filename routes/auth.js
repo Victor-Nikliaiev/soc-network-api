@@ -7,15 +7,13 @@ import bcrypt from "bcrypt";
 router.post("/register", async (req, res) => {
     try {
         // generate new password
+        const { password, ...data } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        data.password = hashedPassword;
 
         // create new user
-        const newUser = new User({
-            username: req.body.username,
-            password: hashedPassword,
-            email: req.body.email,
-        });
+        const newUser = new User(data);
 
         // save user and response.
         const user = await newUser.save();

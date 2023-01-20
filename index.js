@@ -14,7 +14,7 @@ dotenv.config();
 
 mongoose.set("strictQuery", true);
 mongoose.connect(process.env.MONGO_URL, () => {
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB [OK]");
 });
 
 // middleware
